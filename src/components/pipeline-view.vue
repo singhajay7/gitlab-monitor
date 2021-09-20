@@ -125,10 +125,7 @@
     },
     methods: {
       async fetchJobs() {
-        const coreJobs = await this.$api(`/projects/${this.project.id}/pipelines/${this.pipeline.id}/jobs?per_page=50`)
-        const bridgedJobs = await this.$api(`/projects/${this.project.id}/pipelines/${this.pipeline.id}/bridges?per_page=50`)
-
-        this.jobs = coreJobs.concat(bridgedJobs)
+        this.jobs = await this.$api(`/projects/${this.project.id}/pipelines/${this.pipeline.id}/jobs?per_page=50`)
         this.jobs.sort((j1, j2) => j1.id - j2.id);
 
         if (!Config.root.showRestartedJobs) {
